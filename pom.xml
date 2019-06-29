@@ -10,7 +10,7 @@
 
     <groupId>io.github.semlink</groupId>
     <artifactId>verbnet</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.1-SNAPSHOT</version>
 
     <name>VerbNet</name>
     <description>A JVM interface for working with VerbNet.</description>

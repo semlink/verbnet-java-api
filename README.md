@@ -1,4 +1,5 @@
 # VerbNet Java API
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.semlink/verbnet/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.semlink/verbnet)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 This project aims to provide a simple API for working with [VerbNet](https://verbs.colorado.edu/verbnet/) using the JVM.
@@ -7,6 +8,21 @@ One goal of the project is to provide a common interface across different versio
 As such, no explicit registries or enumerations are provided for types like thematic roles and semantic predicates, as these vary considerably across different versions.
 
 It is fully compatible with newer versions of VerbNet incorporating [Generative Lexicon Event Structures](http://www.lrec-conf.org/proceedings/lrec2018/pdf/1056.pdf).
+
+## Usage
+The easiest way to make use of this VerbNet API in your project is through [Maven](https://maven.apache.org/),
+by simply adding the following dependency to your project's `pom.xml`:
+
+```xml
+<dependency>
+    <groupId>io.github.semlink</groupId>
+    <artifactId>verbnet</artifactId>
+    <version>0.0.1</version>
+</dependency>
+```
+
+Releases are distributed through [Maven Central](https://mvnrepository.com/repos/central).
+
 
 Example usage is shown below:
 ```java

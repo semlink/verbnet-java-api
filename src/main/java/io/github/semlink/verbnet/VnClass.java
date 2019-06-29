@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Stack;
+import java.util.stream.Collectors;
 
 /**
  * Individual VerbNet class.
@@ -39,14 +40,41 @@ public interface VnClass {
     List<VnMember> members();
 
     /**
+     * Return a list of all {@link VnMember members}, including members in ancestor {@link VnClass classes}.
+     */
+    default List<VnMember> membersIncludeInherited() {
+        return ancestors(true).stream()
+                .flatMap(ancestor -> ancestor.members().stream())
+                .collect(Collectors.toList());
+    }
+
+    /**
      * Return a list of the {@link VnThematicRole thematic roles} for this class.
      */
     List<VnThematicRole> roles();
 
     /**
+     * Return a list of the {@link VnThematicRole thematic roles} for this class, including inherited roles from ancestor classes.
+     */
+    default List<VnThematicRole> rolesIncludeInherited() {
+        return ancestors(true).stream()
+                .flatMap(ancestor -> ancestor.roles().stream())
+                .collect(Collectors.toList());
+    }
+
+    /**
      * Return a list of the {@link VnFrame frames} for this class.
      */
     List<VnFrame> frames();
+
+    /**
+     * Return a list fo {@link VnFrame frames} for this class, including inherited frames from ancestor classes.
+     */
+    default List<VnFrame> framesIncludeInherited() {
+        return ancestors(true).stream()
+                .flatMap(ancestor -> ancestor.frames().stream())
+                .collect(Collectors.toList());
+    }
 
     /**
      * Return a list of the direct {@link VnClass subclasses} of this class.

@@ -3,7 +3,6 @@ package io.github.semlink.verbnet;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -30,7 +29,7 @@ public class VnIndexTest {
 
     @BeforeClass
     public static void init() {
-        verbNet = DefaultVnIndex.fromDirectory(Paths.get("src/test/resources/test-verbnet"));
+        verbNet = DefaultVnIndex.fromDirectory("src/test/resources/test-verbnet");
     }
 
     @Test

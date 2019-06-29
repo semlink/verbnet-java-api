@@ -3,8 +3,10 @@ package io.github.semlink.verbnet;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 import io.github.semlink.verbnet.restrictions.VnRestrictions;
 import io.github.semlink.verbnet.semantics.VnPredicatePolarity;
@@ -28,13 +30,48 @@ public class VnIndexTest {
 
     @BeforeClass
     public static void init() {
-        verbNet = DefaultVnIndex.fromInputStream(VnClassXml.class.getClassLoader()
-            .getResourceAsStream("vn_test.xml"));
+        verbNet = DefaultVnIndex.fromDirectory(Paths.get("src/test/resources/test-verbnet"));
+    }
+
+    @Test
+    public void testLoad$FromSingleXml() {
+        VnIndex index = DefaultVnIndex.fromInputStream(VnClassXml.class.getClassLoader()
+                .getResourceAsStream("test-verbnet.xml"));
+        assertEquals(2, index.roots().size());
+    }
+
+    @Test
+    public void testGet$ByLemma() {
+        Set<VnClass> cls = verbNet.getByLemma("appreciate");
+        assertEquals(1, cls.size());
+        assertEquals("45.6.1-1", cls.iterator().next().verbNetId().classId());
+    }
+
+    @Test
+    public void testGet$ByBaseIdAndLemma() {
+        Set<VnClass> cls = verbNet.getByBaseIdAndLemma("45.6.1", "appreciate");
+        assertEquals(1, cls.size());
+        assertEquals("45.6.1-1", cls.iterator().next().verbNetId().classId());
+    }
+
+    @Test
+    public void testGetMembers$ByWnKey() {
+        Set<VnMember> members = verbNet.getMembersByWordNetKey(WnKey.parseWordNetKey("climb%2:38:01")
+                .orElseThrow(IllegalArgumentException::new));
+        assertEquals(1, members.size());
+        assertEquals("climb", members.iterator().next().name());
+    }
+
+    @Test
+    public void testGetMembers$ByLmma() {
+        Set<VnMember> members = verbNet.getMembersByLemma("climb");
+        assertEquals(1, members.size());
+        assertEquals("climb", members.iterator().next().name());
     }
 
     @Test
     public void testMembers() {
-        VnClass verbNetClass = verbNet.roots().get(0);
+        VnClass verbNetClass = verbNet.getById("calibratable_cos-45.6.1");
         assertEquals(2, verbNetClass.members().size());
         VnMember build = verbNetClass.members().get(0);
         VnMember die = verbNetClass.members().get(1);
@@ -52,7 +89,7 @@ public class VnIndexTest {
 
     @Test
     public void testThematicRoles() {
-        VnClass beginClass = verbNet.roots().get(1);
+        VnClass beginClass = verbNet.getById("begin-55.1");
         assertEquals(3, beginClass.roles().size());
         VnThematicRole agent = beginClass.roles().get(0);
         VnThematicRole theme = beginClass.roles().get(1);
@@ -69,7 +106,7 @@ public class VnIndexTest {
 
     @Test
     public void testFrames() {
-        VnClass verbNetClass = verbNet.roots().get(0);
+        VnClass verbNetClass = verbNet.getById("calibratable_cos-45.6.1");
         assertEquals(3, verbNetClass.frames().size());
 
         VnFrame frame = verbNetClass.frames().get(0);

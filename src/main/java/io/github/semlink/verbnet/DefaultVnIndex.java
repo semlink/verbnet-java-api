@@ -23,6 +23,7 @@ import com.google.common.collect.SetMultimap;
 import com.google.common.collect.Sets;
 
 import java.io.InputStream;
+import java.nio.file.Path;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -62,6 +63,13 @@ public class DefaultVnIndex implements VnIndex {
         return new DefaultVnIndex(VerbNetXmlFactory.readVerbNet(xmlInputStream));
     }
 
+    /**
+     * Initialize a new {@link VnIndex} from a path to a VerbNet XML directory.
+     */
+    public static DefaultVnIndex fromDirectory(@NonNull Path path) {
+        return new DefaultVnIndex(VerbNetXmlFactory.readFromDirectory(path));
+    }
+
     @Getter
     @Accessors(fluent = true)
     private List<VnClass> roots;
@@ -78,7 +86,7 @@ public class DefaultVnIndex implements VnIndex {
 
     public DefaultVnIndex() {
         List<VnClass> verbClasses = VerbNetXmlFactory
-            .readVerbNet(this.getClass().getClassLoader().getResourceAsStream(DEFAULT_INDEX));
+                .readVerbNet(this.getClass().getClassLoader().getResourceAsStream(DEFAULT_INDEX));
         initialize(verbClasses);
     }
 

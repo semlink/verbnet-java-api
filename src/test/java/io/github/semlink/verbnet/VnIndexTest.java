@@ -63,10 +63,18 @@ public class VnIndexTest {
     }
 
     @Test
-    public void testGetMembers$ByLmma() {
+    public void testGetMembers$ByLemma() {
         Set<VnMember> members = verbNet.getMembersByLemma("climb");
         assertEquals(1, members.size());
         assertEquals("climb", members.iterator().next().name());
+    }
+
+    @Test
+    public void testGetWordNetKeys$ByLemma() {
+        Set<WnKey> climb = verbNet.getWordNetKeysByLemma("climb");
+        assertTrue(climb.contains(WnKey.parseWordNetKey("climb%2:38:01").orElseThrow(IllegalArgumentException::new)));
+        assertTrue(climb.contains(WnKey.parseWordNetKey("climb%2:38:00").orElseThrow(IllegalArgumentException::new)));
+        assertTrue(climb.contains(WnKey.parseWordNetKey("climb%2:30:01").orElseThrow(IllegalArgumentException::new)));
     }
 
     @Test

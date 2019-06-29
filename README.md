@@ -1,7 +1,7 @@
-# Java VerbNet API
+# VerbNet Java API
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-This project aims to provide a simple API for working with [VerbNet](https://verbs.colorado.edu/verbnet/).
+This project aims to provide a simple API for working with [VerbNet](https://verbs.colorado.edu/verbnet/) using the JVM.
 
 One goal of the project is to provide a common interface across different versions of VerbNet.
 As such, no explicit registries or enumerations are provided for types like thematic roles and semantic predicates, as these vary considerably across different versions.

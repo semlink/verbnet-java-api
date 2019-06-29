@@ -60,7 +60,6 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <gpg.keyname>verbnet</gpg.keyname>
         <guava.version>27.0-jre</guava.version>
         <lombok.version>1.18.4</lombok.version>
         <slf4j.version>1.7.25</slf4j.version>
